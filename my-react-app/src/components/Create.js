@@ -1,19 +1,24 @@
 import React, { useState } from "react";
-import { Button, Checkbox, Form } from "semantic-ui-css";
+import { Button, Checkbox, Form } from "semantic-ui-react";
 import axios from "axios";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function Create() {
+  let history = useHistory();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [checkBox, setCheckBox] = useState(false);
-
   const postData = () => {
-    console.log(firstName);
-    console.log(lastName);
-    console.log(checkBox);
-    // axios.post('https://656ae3dfdac3630cf72765c1.mockapi.io/User'),
+    axios
+      .post("https://656ae3dfdac3630cf72765c1.mockapi.io/User", {
+        firstName,
+        lastName,
+        checkBox,
+      })
+      .then(() => {
+        history.push("/read");
+      });
   };
-
   return (
     <Form className="create-form">
       <Form.Field>
@@ -32,11 +37,13 @@ export default function Create() {
       </Form.Field>
       <Form.Field>
         <Checkbox
-          Label="Tôi đồng ý với các điều khoản!"
+          label="Tôi đồng ý với các điều khoản!"
           onChange={(e) => setCheckBox(!checkBox)}
         />
       </Form.Field>
-      <Button type="submit">Submit</Button>
+      <Button onClick={postData} type="submit">
+        Submit
+      </Button>
     </Form>
   );
 }
