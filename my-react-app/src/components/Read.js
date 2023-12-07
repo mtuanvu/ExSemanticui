@@ -14,33 +14,42 @@ function Read() {
         console.error(error);
       });
   }, []);
+  const getData = () => {
+    axios
+      .get("https://656ae3dfdac3630cf72765c1.mockapi.io/User")
+      .then(() => {});
+  };
+  const onDelete = (id) => {
+    axios
+      .delete("https://656ae3dfdac3630cf72765c1.mockapi.io/User/{id}")
+      .then(() => {
+        // getData();
+        console.log("Xóa thành công");
+      });
+  };
   return (
-    // <ul>
-    //   {data.map((data) => (
-    //     <li key={data.firstName}>
-    //       {data.lastName}
-    //       {data.checkbox}
-    //     </li>
-    //   ))}
-    // </ul>
     <div>
       <Table singleLine>
         <Table.Header>
           <Table.Row>
+            <Table.HeaderCell>ID</Table.HeaderCell>
             <Table.HeaderCell>First Name</Table.HeaderCell>
             <Table.HeaderCell>Last Name</Table.HeaderCell>
             <Table.HeaderCell>Chech Box</Table.HeaderCell>
+            <Table.HeaderCell>Actions</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {data.map((data) => {
             return (
               <Table.Row>
+                <Table.Cell>{data.id}</Table.Cell>
                 <Table.Cell>{data.firstName}</Table.Cell>
                 <Table.Cell>{data.lastName}</Table.Cell>
                 <Table.Cell>
-                  {data.checkbox ? "Checked" : "unchecked"}
+                  {data.checkbox ? "Checked" : "Unchecked"}
                 </Table.Cell>
+                <Button onClick={() => onDelete(data.id)}>Delete</Button>
               </Table.Row>
             );
           })}
