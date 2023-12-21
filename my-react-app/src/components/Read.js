@@ -23,7 +23,7 @@ function Read() {
     axios
       .delete("https://656ae3dfdac3630cf72765c1.mockapi.io/User/{id}")
       .then(() => {
-        // getData();
+        getData();
         console.log("Xóa thành công");
       });
   };
